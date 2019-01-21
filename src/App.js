@@ -7,16 +7,10 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import styled from 'styled-components/native'
 import { SharedElementRenderer } from 'react-native-motion'
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-    android:
-        'Double tap R on your keyboard to reload,\n' +
-        'Shake or press menu button for dev menu',
-});
 
 const StyledView = styled.View` 
     flex: 1;
@@ -26,45 +20,73 @@ const StyledView = styled.View`
 `
 
 type Props = {
-    appLoaded: boolean
+    loginState: boolean
 };
 export default class App extends Component<Props> {
 
     constructor(props) {
         super(props)
         this.state = {
-            appLoaded: false
+            loginState: 'loading'
         }
     }
 
     componentDidMount() {
+        // TODO: Refactor this into a separate auth service or module
+        // TODO: get the api url from the app config + accessKey + accessPassword
+        // TODO: save the token to the runtime config for further use on each call.
         fetch('https://api.roostermoney.com/v1/auth/', {
-            method: 'post',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
-                "accessKey": "bensmith",
-                "accessPassword": "49f1963d859a9ec63e41"
+                accessKey: 'bensmith',
+                accessPassword: "49f1963d859a9ec63e41"
             })
-        }).then(function(response) {
-            return response.json();
-        }).then(function(data) {
-            console.log('Created Gist:', data.html_url);
         })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error === "AuthFailedError") {
+                    return Promise.reject('Failed to Login')
+                }
+                if (data.token !== null) {
+                    this.setState({
+                        loginState: 'success',
+                        token: data.token
+                    })
+                }
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.log('Error:', error);
+                this.setState({
+                    loginState: 'failed'
+                })
+            })
     }
 
     render() {
-        const { appLoaded } = this.state;
-
+        const { loginState, token } = this.state;
+        // TODO: loginState should be in redux store
+        // TODO: remove text and replace with actual views.
         return (
             <SharedElementRenderer>
                 <StyledView>
                     {
-                        appLoaded ? (
-                            <Text style={styles.authorised}>
-                                We have logged in
-                            </Text>
-                        ) : (
-                            <Text style={styles.welcome}>Loading Account...</Text>
-                        )
+                        loginState === 'success' &&
+                        <Text style={styles.authorised}>
+                            We have logged in lets view your account totals
+                            { token }
+                        </Text>
+                    }
+                    {
+                        loginState === 'loading' &&
+                        <Text style={styles.welcome}>Loading Account... Loading View</Text>
+                    }
+                    {
+                        loginState === 'failed' &&
+                        <Text style={styles.welcome}>Failed to load account. Login View</Text>
                     }
                 </StyledView>
             </SharedElementRenderer>

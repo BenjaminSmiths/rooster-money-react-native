@@ -1,8 +1,8 @@
 import { createStackNavigator, createSwitchNavigator } from "react-navigation";
 
-import SplashScreen from './components/Home/SplashScreen';
-import HomeScreen from './components/Home/HomeScreen';
-import BalanceScreen from './components/Balance/BalanceScreen';
+import SplashScreen from './screens/Splash/SplashScreen';
+import HomeScreen from './screens/Home/HomeScreen';
+import BalanceScreen from './screens/Balance/BalanceScreen';
 
 const AppStack = createStackNavigator({
     Home: {

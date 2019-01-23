@@ -2,25 +2,44 @@
   "name": "goingnative",
   "version": "0.0.1",
   "private": true,
-  "main": "./lib/index.js",
+  "author": "Ben Smith",
+  "license": "zeightspace",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.3.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "jsdom": "^13.1.0",
+    "mobx": "^5.9.0",
+    "mobx-navigation": "^1.0.0",
+    "mobx-react": "^5.4.3",
+    "mobx-react-devtools": "^6.0.3",
     "react": "16.6.3",
     "react-native": "0.57.8",
-    "react-native-motion": "^0.2.0",
+    "react-native-dotenv": "^0.2.0",
+    "react-native-vector-icons": "^6.2.0",
+    "react-navigation": "^3.0.0",
     "styled-components": "^4.1.3"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
     "flow-bin": "^0.91.0",
     "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.51.1",
+    "jest-enzyme": "^7.0.1",
+    "jest-fetch-mock": "^2.1.0",
+    "metro-react-native-babel-preset": "^0.51.1",
+    "react-native-mock-render": "^0.1.2",
     "react-test-renderer": "16.6.3"
   },
   "jest": {
-    "preset": "react-native"
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setup-tests.js",
+    "preset": "react-native",
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    }
   }
 }

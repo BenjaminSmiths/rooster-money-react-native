@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Splash Screen Renders Correctly 1`] = `
+<View
+  height={1334}
+  style={
+    Array [
+      Object {
+        "alignItems": "stretch",
+        "flexGrow": 1,
+        "height": 1334,
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        },
+      ]
+    }
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../src/images/roostermoney-logo.png",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "marginBottom": 20,
+          },
+        ]
+      }
+    />
+    <ActivityIndicator
+      animating={true}
+      color="#999999"
+      hidesWhenStopped={true}
+      size="small"
+    />
+  </View>
+</View>
+`;

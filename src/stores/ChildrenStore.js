@@ -33,8 +33,6 @@ export default class ChildrenStore {
     static create(parentStore) {
         const childrenStore = new ChildrenStore();
         childrenStore.parentStore = parentStore
-
-        console.log('children create')
         return childrenStore;
     }
 }

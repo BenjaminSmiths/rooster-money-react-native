@@ -54,7 +54,6 @@ export default class Home extends Component<Props> {
     };
 
     render() {
-        console.log(this.props)
         const { navigation } = this.props;
         const { childrenStore } = navigation.state.params;
         return (

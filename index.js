@@ -20,7 +20,6 @@ class App extends Component {
 
         parentStore.login()
             .then(() => {
-                console.log('App dis', childrenStore)
                 this.navigator &&
                 this.navigator.dispatch(
                     NavigationActions.navigate(
